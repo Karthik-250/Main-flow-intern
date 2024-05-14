@@ -26,6 +26,26 @@ nav ul li a {
     text-decoration: none;
     padding: 10px;
 }
+.container 
+{
+   width:900px;
+   margin:0 auto;
+}
+@media (max-width:800px) 
+{
+   .container
+   {
+      width:840px;
+   }
+}
+@media (max-width:480px) 
+{
+   .container
+   {
+      width:100%;
+      padding:8px;
+   }
+}
 
 section {
     padding: 20px;
