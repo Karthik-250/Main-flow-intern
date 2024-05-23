@@ -44,6 +44,9 @@ nav ul li a:hover {
     border: none;
     padding: 10px;
     cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
 .container {
@@ -102,10 +105,10 @@ h2 {
 }
 
 article {
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: 50px;
+    padding: 20px;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -113,12 +116,4 @@ h3 {
     color: #333;
 }
 
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
+
