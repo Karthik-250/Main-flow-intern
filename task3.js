@@ -1,63 +1,39 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Interactive menu functionality
-    const menuItems = document.querySelectorAll("#menu a");
-    menuItems.forEach(item => {
-        item.addEventListener("click", function(event) {
-            event.preventDefault();
-            const targetId = this.getAttribute("href").substring(1);
-            const targetSection = document.getElementById(targetId);
-            window.scrollTo({
-                top: targetSection.offsetTop,
-                behavior: "smooth"
-            });
-        });
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('recipe-form');
 
-    // Form validation and dynamic content update
-    const recommendationForm = document.getElementById("recommendationForm");
-    const recommendationsList = document.getElementById("recommendationsList");
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('recipe-name').value.trim();
+        const category = document.getElementById('recipe-category').value;
+        const ingredients = document.getElementById('recipe-ingredients').value.trim();
+        const instructions = document.getElementById('recipe-instructions').value.trim();
 
-    recommendationForm.addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        const emailInput = document.getElementById("email").value.trim();
-        const passwordInput = document.getElementById("password").value.trim();
-        const genreInput = document.getElementById("genre").value.trim();
-        const yearInput = document.getElementById("year").value.trim();
-
-        // Basic form validation
-        if (!emailInput || !passwordInput || !genreInput || !yearInput || isNaN(yearInput)) {
-            alert("Please enter valid inputs.");
+        if (!name || !category || !ingredients || !instructions) {
+            alert('Please fill in all fields.');
             return;
         }
 
-        // Sanitize user input to prevent XSS
-        const sanitizedEmail = sanitizeInput(emailInput);
-        const sanitizedPassword = sanitizeInput(passwordInput);
-        const sanitizedGenre = sanitizeInput(genreInput);
-        const sanitizedYear = sanitizeInput(yearInput);
-
-        // Fetch movie recommendations (mocked here for example)
-        const recommendations = getRecommendations(sanitizedGenre, sanitizedYear);
-
-        // Update recommendations list
-        recommendationsList.innerHTML = recommendations.map(movie => `<div>${movie}</div>`).join('');
+        addRecipe(name, category, ingredients, instructions);
+        form.reset();
     });
-
-    // Function to sanitize user input
-    function sanitizeInput(input) {
-        const tempDiv = document.createElement("div");
-        tempDiv.textContent = input;
-        return tempDiv.innerHTML;
-    }
-
-    // Mock function to get movie recommendations
-    function getRecommendations(genre, year) {
-        // This is a mock function. Replace with actual API call or logic.
-        return [
-            `Movie 1 (${genre}, ${year})`,
-            `Movie 2 (${genre}, ${year})`,
-            `Movie 3 (${genre}, ${year})`
-        ];
-    }
 });
+
+function addRecipe(name, category, ingredients, instructions) {
+    const section = document.getElementById(category);
+    const article = document.createElement('article');
+
+    const h3 = document.createElement('h3');
+    h3.textContent = name;
+
+    const pIngredients = document.createElement('p');
+    pIngredients.innerHTML = `<strong>Ingredients:</strong> ${ingredients}`;
+
+    const pInstructions = document.createElement('p');
+    pInstructions.innerHTML = `<strong>Instructions:</strong> ${instructions}`;
+
+    article.appendChild(h3);
+    article.appendChild(pIngredients);
+    article.appendChild(pInstructions);
+
+    section.appendChild(article);
+}
