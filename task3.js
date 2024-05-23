@@ -16,6 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
         addRecipe(name, category, ingredients, instructions);
         form.reset();
     });
+
+    const nav = document.querySelector('nav ul');
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = 'Menu';
+    toggleButton.classList.add('menu-toggle');
+
+    toggleButton.addEventListener('click', () => {
+        nav.classList.toggle('open');
+    });
+
+    document.querySelector('header').insertBefore(toggleButton, nav);
 });
 
 function addRecipe(name, category, ingredients, instructions) {
